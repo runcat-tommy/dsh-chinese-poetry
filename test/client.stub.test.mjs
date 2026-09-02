@@ -165,8 +165,11 @@ test("M3: feihua input, favorites toggle, and AI explain write the composer draf
       return typeof desc.type === "function" ? desc.type(desc.props) : desc;
     };
 
-    // 1) M3 UI chrome renders: feihua group + favorites toggle
+    // 1) M3 UI chrome renders: credit line, feihua group + favorites toggle
     let tree = render();
+    assert.equal(findByClass(tree, "cp-credit").length, 1, "credit line should render");
+    const creditLink = collect(tree, [], (n) => n.type === "a" && n.props.href && n.props.href.includes("palemoky"));
+    assert.equal(creditLink.length, 1, "credit should link to the upstream project");
     assert.equal(findByClass(tree, "cp-feihua").length, 1, "feihua char input should render");
     assert.equal(findByClass(tree, "cp-search").length, 1, "search input should render");
     const favBtn = collect(tree, [], (n) => n.type === "button" && textOf(n).includes("L:favs"));
