@@ -274,44 +274,54 @@ test("M4: festival grid, featured poem, AI-verse handoff, and share-card fallbac
   }
 });
 
-test("shareCardDataUrl lays the poem body out without overlapping lines", () => {
+test("shareCardDataUrl lays the poem body out without overlapping lines and grows for long poems", () => {
   const { exportsOut } = runFactory();
   const calls = [];
+  const lastCanvas = { height: 0 };
   const origDoc = globalThis.document;
   globalThis.document = {
-    createElement: () => ({
-      getContext: () => ({
-        textAlign: "", textBaseline: "", font: "", fillStyle: "", strokeStyle: "", lineWidth: 1,
-        fillRect() {}, strokeRect() {}, beginPath() {}, moveTo() {}, lineTo() {}, stroke() {},
-        measureText: (t) => ({ width: String(t).length * 16 }),
-        fillText: (text, x, y) => calls.push({ text: String(text), x, y }),
+    createElement: () => {
+      const cv = {
+        getContext: () => ({
+          textAlign: "", textBaseline: "", font: "", fillStyle: "", strokeStyle: "", lineWidth: 1,
+          fillRect() {}, strokeRect() {}, beginPath() {}, moveTo() {}, lineTo() {}, stroke() {},
+          measureText: (t) => ({ width: String(t).length * 16 }),
+          fillText(text, x, y) { calls.push({ text: String(text), x, y, font: this.font }); },
+          toDataURL: () => "data:image/png;base64,x",
+        }),
         toDataURL: () => "data:image/png;base64,x",
-      }),
-      toDataURL: () => "data:image/png;base64,x",
-    }),
+      };
+      Object.defineProperty(cv, "height", { set(v) { lastCanvas.height = v; } });
+      return cv;
+    },
   };
   try {
     const url = exportsOut.shareCardDataUrl({
       title: "和江西李助副使早登开元寺阁",
       author: { name: "陈陶" }, dynasty: { name: "唐" },
-      content: [
-        // a long校勘-style paragraph that must wrap into several lines
-        "《全唐诗》卷五九七第十录于陶名下题作《登武昌江山寺》第十五句不缺作「书剑忽若空」。校勘记长句这里继续延续以验证换行不会重叠。",
-        "第二段也应完整显示。",
-      ],
+      content: (() => {
+        // Enough long stanzas to wrap well past the 860px canvas floor.
+        const paras = [];
+        for (let i = 0; i < 6; i++) {
+          paras.push("君不见黄河之水天上来奔流到海不复回君不见高堂明镜悲白发朝如青丝暮成雪长段第" + i + "句继续延伸以撑起更高卡片。");
+        }
+        return paras;
+      })(),
     });
     assert.ok(url, "should render a card when a canvas is available");
 
-    // Body lines are drawn on the center column starting at y >= 400.
-    const bodyYs = calls.filter((c) => c.x === 330 && c.y >= 400).map((c) => c.y).sort((a, b) => a - b);
-    assert.ok(bodyYs.length >= 3, "a long paragraph should wrap into several body lines");
+    // Body rows use the 32px body font; they must be drawn at strictly
+    // increasing y (never overlapping) and never be blank.
+    const bodyCalls = calls.filter((c) => c.font && c.font.indexOf("32px") === 0);
+    assert.ok(bodyCalls.length >= 3, "a long paragraph should wrap into several body lines");
+    const bodyYs = bodyCalls.map((c) => c.y).sort((a, b) => a - b);
     for (let i = 1; i < bodyYs.length; i++) {
       assert.ok(bodyYs[i] >= bodyYs[i - 1] + 48, "consecutive body lines must not overlap (y must strictly increase)");
     }
+    assert.ok(bodyCalls.every((c) => c.text.length > 0), "every body line should be non-empty");
 
-    // No blank / empty string lines.
-    const bodyTexts = calls.filter((c) => c.x === 330 && c.y >= 400).map((c) => c.text);
-    assert.ok(bodyTexts.every((s) => s.length > 0), "every body line should be non-empty");
+    // A poem with enough content should stretch the canvas beyond the 860px floor.
+    assert.ok(lastCanvas.height > 860, "a long poem should grow the card height");
   } finally {
     globalThis.document = origDoc;
   }

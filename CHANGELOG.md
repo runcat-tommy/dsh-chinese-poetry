@@ -5,6 +5,11 @@ All notable changes to **dsh-chinese-poetry** are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - 2026-04-13
+
+### Changed
+- Share-card image now uses a **dynamic canvas height**: the card measures the wrapped title + body lines first, then sizes the canvas so long poems (将进酒 / 琵琶行, etc.) render in full instead of being clipped at the old fixed 860px. Short poems still floor at 860px for a consistent look.
+
 ## [1.2.1] - 2026-04-13
 
 ### Fixed
