@@ -5,6 +5,18 @@ All notable changes to **dsh-chinese-poetry** are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-04-13
+
+### Added
+- **Share card image**: render any poem as a parchment-style PNG card (title, author · dynasty, and the text) via `<canvas>`; a "卡片图 / Card" button in each poem's actions downloads it.
+- **Festival topics**: a "节日 / Festivals" view with a grid of 7 festivals (春节 / 元宵 / 清明 / 端午 / 七夕 / 中秋 / 重阳). Picking one shows a featured (token-free) themed poem, plus "随机相关" (random poem containing the festival's keyword char) and "AI 应景" (hands off a prompt to your DSH composer, never auto-submits).
+- Empty-state feedback in the search view after a query returns nothing.
+- Exported `FESTIVALS`, `festivalById`, and `shareCardDataUrl` for testability.
+
+### Changed
+- Version bumped to **1.2.0** (`package.json` + `lib/client.js`).
+- Tool-bar gains a "Festivals" toggle; the poetry result view is now a 3-way split (search / favs / festival).
+
 ## [1.1.0] - 2026-04-13
 
 ### Added

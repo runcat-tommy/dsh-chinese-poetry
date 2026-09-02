@@ -280,3 +280,21 @@ test("fixPoemDynasty passes through unknown or empty dynasty", () => {
   assert.equal(empty.name, "");
   assert.equal(empty.corrected, false);
 });
+
+test("FESTIVALS provides a themed poem per festival (M4)", () => {
+  const { FESTIVALS, festivalById } = loadExports();
+  assert.equal(FESTIVALS.length, 7, "seven festivals");
+  for (const f of FESTIVALS) {
+    assert.ok(f.id && f.name && f.char, `festival ${f.id} should have id/name/char`);
+    assert.ok(f.poem.title && f.poem.author && f.poem.author.name && f.poem.dynasty && f.poem.dynasty.name, `poem of ${f.id} should be complete`);
+    assert.ok(Array.isArray(f.poem.content) && f.poem.content.length > 0, `poem of ${f.id} should have content`);
+  }
+  const zq = festivalById("zhongqiu");
+  assert.ok(zq && zq.name === "中秋", "festivalById should resolve");
+  assert.equal(festivalById("missing"), null);
+});
+
+test("shareCardDataUrl returns null without a canvas (stub env)", () => {
+  const { shareCardDataUrl } = loadExports();
+  assert.equal(shareCardDataUrl({ title: "x", author: { name: "a" }, content: ["line"] }), null);
+});

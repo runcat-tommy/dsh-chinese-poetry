@@ -22,6 +22,8 @@ The base project exposes raw endpoints (paged by author / dynasty / genre, rando
 - **Robust data layer**: token-bucket rate limiting (search 6/min, others 15/min), local caching, 429 exponential backoff, and degradation to cache / offline when failures stack up.
 - **Offline fallback**: ~90 built-in poems keep the demo working offline; 2-character queries use local picks with an explicit note (only 3+ characters search the full 370k corpus).
 - **飞花令 (Feihua)**: enter one character to get random poems containing it; click again for another.
+- **Share-card image**: render any poem as a parchment-style PNG card (title / author · dynasty / text) and download it to share.
+- **Festival topics**: 7 built-in festivals (春节 / 元宵 / 清明 / 端午 / 七夕 / 中秋 / 重阳); pick one for a featured token-free poem, with "random related" and "AI verse".
 - **Favorites / history / zh-Hans·zh-Hant**: stored locally (localStorage), with a global simplified/traditional toggle.
 - **AI explanation**: drops a prompt into your DSH composer (**never auto-submits** — press Enter to confirm), reusing your existing model quota.
 - **View UX**: auto-switches to the Chat view after AI explanation; the poetry tab's content survives switching among Chat / Trajectory / Poetry; the recent-search block is always visible.
@@ -56,8 +58,8 @@ dsh plugin --profile web add link:.
 
 1. Open a session (Chat / Trajectory / Poetry).
 2. Click the **"Poetry"** tab in the session header.
-3. Search any word/sentence, or filter by author / dynasty / genre; 飞花令 (single character), random, daily poem, and simplified/traditional switching are supported.
-4. Open a poem's details to copy (plain text / Markdown) or favorite it; **AI Explain** fills the composer with a prompt — **press Enter yourself to confirm** (it never auto-submits).
+3. Search any word/sentence, or filter by author / dynasty / genre; 飞花令 (single character), random, daily poem, simplified/traditional switching, and **festival topics** (pick a festival for its featured poem) are supported.
+4. Open a poem's details to copy (plain text / Markdown), favorite it, or tap **Card** to download a PNG poem card; **AI Explain** fills the composer with a prompt — **press Enter yourself to confirm** (it never auto-submits).
 
 ## Roadmap
 
@@ -67,7 +69,7 @@ dsh plugin --profile web add link:.
 - [x] M3: 飞花令, daily poem, favorites/history, AI-explain handoff
 - [x] M4a: dynasty correction table, always-visible recent-search block, auto-switch to Chat after AI explain, view content memory
 - [x] M4b: data-base credit note (in-view), bilingual UI/README copy, CHANGELOG, npm 1.1.0
-- [ ] M4: deeper tool-style UI polish, share card image, festival topics
+- [x] M4: share-card image (canvas → downloadable PNG poem card), festival topics (7 festivals with featured poem + random related + AI verse), tool-UI polish (empty state, 3-way view split, grid layout)
 - [x] M5: open-source release on GitHub (runcat-tommy/dsh-chinese-poetry)
 
 ## Development

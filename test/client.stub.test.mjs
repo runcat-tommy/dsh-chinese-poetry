@@ -217,3 +217,59 @@ test("M3: feihua input, favorites toggle, and AI explain write the composer draf
     globalThis.fetch = origFetch;
   }
 });
+
+test("M4: festival grid, featured poem, AI-verse handoff, and share-card fallback", () => {
+  const reactImpl = makeStatefulReact();
+  const { exportsOut, counters, registrations } = runFactory(reactImpl);
+  const origFetch = globalThis.fetch;
+  globalThis.fetch = async () => ({
+    status: 200,
+    ok: true,
+    text: async () => JSON.stringify({ data: [] }),
+  });
+  try {
+    exportsOut.apply(makeCtx(counters, registrations));
+    const viewReg = registrations.find((r) => r.def && r.def.name === "conversation.view");
+    const setDraftCalls = [];
+    const slotProps = {
+      sessionId: "s2",
+      inputActions: { setDraft: (v) => setDraftCalls.push(v), submit: () => {} },
+    };
+    const render = () => {
+      reactImpl.resetIndex();
+      const desc = viewReg.render(slotProps);
+      return typeof desc.type === "function" ? desc.type(desc.props) : desc;
+    };
+
+    // enter the festival view
+    let tree = render();
+    collect(tree, [], (n) => n.type === "button" && textOf(n) === "L:festival")[0].props.onClick();
+    tree = render();
+    assert.equal(findByClass(tree, "cp-festival-grid").length, 1, "festival grid should render");
+    assert.equal(findByClass(tree, "cp-festival-card").length, 7, "seven festival cards");
+
+    // pick the first festival → its featured poem renders
+    findByClass(tree, "cp-festival-card")[0].props.onClick();
+    tree = render();
+    assert.ok(findByClass(tree, "cp-row-head").length >= 1, "festival featured poem should render");
+    assert.equal(findByClass(tree, "cp-festival-card active").length, 1, "the chosen card is highlighted");
+
+    // AI verse hands off a prompt (never auto-submits)
+    const aiBtn = collect(tree, [], (n) => n.type === "button" && textOf(n) === "L:festivalAi")[0];
+    assert.ok(aiBtn, "AI-verse button should appear");
+    aiBtn.props.onClick();
+    assert.equal(setDraftCalls.length, 1, "AI verse should call setDraft once");
+
+    // expand the featured poem, then share-card in a DOM-less env falls back to a message
+    findByClass(tree, "cp-row-head")[0].props.onClick();
+    tree = render();
+    const shareBtn = collect(tree, [], (n) => n.type === "button" && textOf(n) === "L:cardShare")[0];
+    assert.ok(shareBtn, "share-card button should appear in expanded actions");
+    shareBtn.props.onClick({ stopPropagation() {} });
+    tree = render();
+    const cardMsg = collect(tree, [], (n) => n.props && typeof n.props.className === "string" && n.props.className.indexOf("cp-msg") === 0 && textOf(n).includes("L:cardNoCanvas"));
+    assert.ok(cardMsg.length >= 1, "no-canvas share should show a fallback message");
+  } finally {
+    globalThis.fetch = origFetch;
+  }
+});
