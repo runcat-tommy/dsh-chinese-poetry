@@ -31,6 +31,14 @@ The base project exposes raw endpoints (paged by author / dynasty / genre, rando
 
 ## Install
 
+### From npm (recommended)
+
+```sh
+dsh plugin --profile web add dsh-chinese-poetry
+```
+
+> `dsh-chinese-poetry` is published to **npm** (<https://www.npmjs.com/package/dsh-chinese-poetry>); `dsh plugin add` pulls and installs it straight from the npm registry (no separate `npm install` needed) and the version stays in sync with the GitHub repo.
+
 ### From GitHub (once published)
 
 ```sh

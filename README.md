@@ -31,13 +31,21 @@ English: [README.en.md](README.en.md)
 
 ## 安装
 
-### 方式一：GitHub（发布后可用）
+### 方式一：npm 包（推荐）
+
+```sh
+dsh plugin --profile web add dsh-chinese-poetry
+```
+
+> 说明：`dsh-chinese-poetry` 已发布到 **npm**（<https://www.npmjs.com/package/dsh-chinese-poetry>），`dsh plugin add` 会直接从 npm registry 拉取并安装，无需手动 `npm install`；版本与 GitHub 仓库同步。
+
+### 方式二：GitHub（发布后可用）
 
 ```sh
 dsh plugin --profile web add github:<你的用户名>/dsh-chinese-poetry
 ```
 
-### 方式二：本地源码安装（开发 / 调试）
+### 方式三：本地源码安装（开发 / 调试）
 
 ```sh
 cd dsh-chinese-poetry
