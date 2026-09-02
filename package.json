@@ -1,0 +1,55 @@
+{
+  "name": "dsh-chinese-poetry",
+  "description": "Chinese classical poetry viewer for DeepSeek Harness Web: a '诗词' conversation-view tab (next to 对话/轨迹) with token-free search, filters, 飞花令, daily poem, favorites, and AI explanation via your own DSH session. 免 token 诗词查询插件：会话页头新增「诗词」标签页。",
+  "version": "0.5.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "poetry",
+    "chinese-poetry",
+    "诗词"
+  ],
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    },
+    "marketplace": {
+      "profiles": ["web"],
+      "requiresBuildApproval": false,
+      "requiresRestart": true,
+      "manualSteps": false
+    }
+  },
+  "files": [
+    "cordis.patch.yml",
+    "lib",
+    "README.md",
+    "README.en.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test \"test/*.test.mjs\""
+  },
+  "license": "MIT"
+}
