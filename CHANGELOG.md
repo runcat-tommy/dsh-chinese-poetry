@@ -5,6 +5,11 @@ All notable changes to **dsh-chinese-poetry** are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-04-13
+
+### Fixed
+- Share-card image body layout: text lines could overlap (the first line of a long校勘 paragraph rendered on top of itself). The card now wraps every paragraph into a flat line list and draws each row with a strictly increasing y, so lines never collide. Added a fake-canvas test asserting monotonic line y and non-empty rows.
+
 ## [1.2.0] - 2026-04-13
 
 ### Added
