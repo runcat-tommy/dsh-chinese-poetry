@@ -5,6 +5,11 @@ All notable changes to **dsh-chinese-poetry** are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.3] - 2026-04-13
+
+### Changed
+- Moved the data-base credit line ("数据接口来自开源项目 palemoky/chinese-poetry-api…") from the top of the view down into the footer, stacked above the version line, so it no longer crowds the search toolbar.
+
 ## [1.2.2] - 2026-04-13
 
 ### Changed
