@@ -9,6 +9,10 @@ DeepSeek Harness Web 的**免 token 诗词查询插件**：在会话页头新增
 
 English: [README.en.md](README.en.md)
 
+## 界面预览
+
+![诗词查询界面](assets/preview-zh.jpg)
+
 ## 数据基座
 
 本插件的全部诗词语料与查询接口来自开源项目 **[palemoky/chinese-poetry-api](https://github.com/palemoky/chinese-poetry-api)**（[诗泉 poetry.palemoky.com](https://poetry.palemoky.com/)），在此向原作者致谢。该服务免费、无需注册与 API Key、CORS 全开。若你的查询较慢，多为该服务端接口响应慢所致，请前往该项目向作者反馈。
@@ -68,6 +72,10 @@ dsh plugin --profile web add link:.
 2. 点击页头 **「诗词」** 标签进入查询界面。
 3. 搜索框输入任意词 / 句，或按作者 / 朝代 / 体裁筛选；支持飞花令（单字）、随机、每日一首、简繁切换、**节日专题**（选一个节看到其精选相关诗）。
 4. 点开某首诗的详情，可复制（纯文本 / Markdown）、收藏，或点 **卡片图** 生成一张可下载的诗图卡片；点 **AI 解读** 会把提示词写入输入框，**由你按回车确认**后由 dsh 会话回答（不自动提交）。
+
+> 卡片图导出示例：
+
+> ![诗词卡片图导出](assets/image_export_demo.png)
 
 ## 功能路线图
 

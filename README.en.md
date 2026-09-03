@@ -9,6 +9,10 @@ A **token-free Chinese classical poetry plugin** for DeepSeek Harness Web: adds 
 
 中文: [README.md](README.md)
 
+## UI preview
+
+![Poetry query UI](assets/preview-en.jpg)
+
 ## Data base
 
 All poem corpus and query endpoints come from the open-source project **[palemoky/chinese-poetry-api](https://github.com/palemoky/chinese-poetry-api)** ([诗泉 poetry.palemoky.com](https://poetry.palemoky.com/)) — thanks to its author. The service is free, needs no registration or API key, and has CORS open. If your queries run slow, it is usually the upstream service — please report it to that project.
@@ -68,6 +72,10 @@ dsh plugin --profile web add link:.
 2. Click the **"Poetry"** tab in the session header.
 3. Search any word/sentence, or filter by author / dynasty / genre; 飞花令 (single character), random, daily poem, simplified/traditional switching, and **festival topics** (pick a festival for its featured poem) are supported.
 4. Open a poem's details to copy (plain text / Markdown), favorite it, or tap **Card** to download a PNG poem card; **AI Explain** fills the composer with a prompt — **press Enter yourself to confirm** (it never auto-submits).
+
+> Share-card export example:
+
+> ![Poem share card export](assets/image_export_demo.png)
 
 ## Roadmap
 
