@@ -30,7 +30,7 @@ The base project exposes raw endpoints (paged by author / dynasty / genre, rando
 - **Festival topics**: 7 built-in festivals (春节 / 元宵 / 清明 / 端午 / 七夕 / 中秋 / 重阳); pick one for a featured token-free poem, with "random related" and "AI verse".
 - **Favorites / history / zh-Hans·zh-Hant**: stored locally (localStorage), with a global simplified/traditional toggle.
 - **AI explanation**: drops a prompt into your DSH composer (**never auto-submits** — press Enter to confirm), reusing your existing model quota.
-- **View UX**: search and filters are grouped into cards (an attached search control group, quick actions on their own pill row, filter controls inside one toolbar card); a first-run empty-state card offers one-tap sample keywords; auto-switches to the Chat view after AI explanation; the poetry tab's content survives switching among Chat / Trajectory / Poetry; the recent-search block is always visible.
+- **View UX**: the three unrelated tools are **mutually exclusive switchable panels** (Search poems / Filter & random / Feihua), so only the active tool's controls are on screen; global quick actions (random / daily / festivals / favs / zh-Hans·zh-Hant) sit on their own row; a first-run empty-state card offers one-tap sample keywords; auto-switches to the Chat view after AI explanation; the poetry tab's content survives switching among Chat / Trajectory / Poetry; the recent-search block (inside the search tool) is always visible.
 - **Bilingual UI / docs**: both the UI copy and the README are provided in Chinese and English.
 
 ## Install
@@ -88,6 +88,7 @@ dsh plugin --profile web add link:.
 - [x] M4: share-card image (canvas → downloadable PNG poem card), festival topics (7 festivals with featured poem + random related + AI verse), tool-UI polish (empty state, 3-way view split, grid layout)
 - [x] M5: open-source release on GitHub (runcat-tommy/dsh-chinese-poetry)
 - [x] M6: UI redesign (v1.3.0) — attached search control group, quick actions on their own pill row, filters grouped into one toolbar card, first-run empty-state card, unified design tokens and primary/secondary button hierarchy
+- [x] M7: split the three independent tools into **mutually exclusive switchable panels** (Search poems / Filter & random / Feihua); global quick actions moved to their own row; recent searches folded into the search tool (v1.4.0)
 
 ## Development
 
