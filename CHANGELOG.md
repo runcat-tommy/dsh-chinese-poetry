@@ -5,6 +5,15 @@ All notable changes to **dsh-chinese-poetry** are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-09-11
+
+### Changed
+- The 诗词 tab now splits its three **independent** tools into **mutually exclusive, switchable panels** (搜索诗句 / 筛一首 / 飞花令) instead of stacking every control on one page. The segmented switcher sits at the top of the tool card and only the active tool's own controls render, each panel carrying a one-line hint.
+- The recent-search block moved into the 搜索诗句 panel (still always visible there, with an empty-state placeholder).
+- Global quick actions (随机一首 / 每日一首 / 节日 / 收藏 / 繁简) moved out of the tool card into their own row, so they no longer compete with the tool panels.
+- The filter panel's action button is now labelled 随机取一首 / "Random pick" — it previously read 筛一首, which would have been identical to the new tab label.
+- The active tool is remembered per session (view memory), so leaving the tab and coming back keeps the last tool.
+
 ## [1.3.0] - 2026-09-11
 
 ### Changed

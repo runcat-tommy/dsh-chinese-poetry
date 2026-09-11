@@ -165,15 +165,27 @@ test("M3: feihua input, favorites toggle, and AI explain write the composer draf
       return typeof desc.type === "function" ? desc.type(desc.props) : desc;
     };
 
-    // 1) M3 UI chrome renders: credit line, feihua group + favorites toggle
+    // 1) M3 UI chrome renders: credit line, favorites toggle, and the three tool tabs
     let tree = render();
     assert.equal(findByClass(tree, "cp-credit").length, 1, "credit line should render");
     const creditLink = collect(tree, [], (n) => n.type === "a" && n.props.href && n.props.href.includes("palemoky"));
     assert.equal(creditLink.length, 1, "credit should link to the upstream project");
-    assert.equal(findByClass(tree, "cp-feihua").length, 1, "feihua char input should render");
-    assert.equal(findByClass(tree, "cp-search").length, 1, "search input should render");
+    const modeTabs = collect(tree, [], (n) => n.type === "button" && typeof n.props.className === "string" && n.props.className.indexOf("cp-mode") === 0);
+    assert.equal(modeTabs.length, 3, "three tool tabs should render");
     const favBtn = collect(tree, [], (n) => n.type === "button" && textOf(n).includes("L:favs"));
     assert.ok(favBtn.length >= 1, "favorites toggle button should render");
+
+    // 1a) the three tools are mutually exclusive — only the active one renders its controls
+    assert.equal(findByClass(tree, "cp-search").length, 1, "search tool renders the search input");
+    assert.equal(findByClass(tree, "cp-feihua").length, 0, "feihua input is hidden while the search tool is active");
+    collect(tree, [], (n) => n.type === "button" && textOf(n) === "L:toolFilter")[0].props.onClick();
+    tree = render();
+    assert.equal(findByClass(tree, "cp-search").length, 0, "search input is hidden while the filter tool is active");
+    assert.equal(collect(tree, [], (n) => n.type === "button" && textOf(n) === "L:filterGo").length, 1, "filter tool shows its own action");
+    collect(tree, [], (n) => n.type === "button" && textOf(n) === "L:toolFeihua")[0].props.onClick();
+    tree = render();
+    assert.equal(findByClass(tree, "cp-feihua").length, 1, "feihua tool renders the single-char input");
+    assert.equal(findByClass(tree, "cp-search").length, 0, "search input is hidden while the feihua tool is active");
 
     // 1b) feihua with an empty char guides instead of searching
     collect(tree, [], (n) => n.type === "button" && textOf(n) === "L:feihuaGo")[0].props.onClick();
@@ -181,9 +193,11 @@ test("M3: feihua input, favorites toggle, and AI explain write the composer draf
     const feihuaMsg = collect(tree, [], (n) => n.props && typeof n.props.className === "string" && n.props.className.indexOf("cp-msg") === 0 && textOf(n).includes("L:feihuaNeedOne"));
     assert.ok(feihuaMsg.length >= 1, "empty feihua should show a guidance message");
 
-    // 1c) history block is always shown (here: empty placeholder) so it is discoverable
+    // 1c) back to the search tool; the history block lives there and is always shown (empty placeholder)
+    collect(tree, [], (n) => n.type === "button" && textOf(n) === "L:toolSearch")[0].props.onClick();
+    tree = render();
     const histBlock = collect(tree, [], (n) => n.props && n.props.className === "cp-history");
-    assert.equal(histBlock.length, 1, "history block should always render in the search view");
+    assert.equal(histBlock.length, 1, "history block should always render in the search tool");
     const histEmpty = collect(tree, [], (n) => n.props && n.props.className === "cp-history-empty" && textOf(n).includes("L:historyEmpty"));
     assert.ok(histEmpty.length >= 1, "empty history should show a placeholder");
 
