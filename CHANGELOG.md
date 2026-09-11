@@ -5,7 +5,7 @@ All notable changes to **dsh-chinese-poetry** are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.3.0] - 2026-04-13
+## [1.3.0] - 2026-09-11
 
 ### Changed
 - **UI redesign** of the 诗词 tab: the search box and its button now form one attached control group instead of a full-width input with the button stranded at the far right.
@@ -20,32 +20,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - The "结果: 0" meta line is no longer rendered before any search has run, removing meaningless status noise on first open.
 
-## [1.2.5] - 2026-04-13
+## [1.2.5] - 2026-09-03
 
 ### Changed
 - README / README.en: added a UI preview screenshot (`assets/preview-zh.jpg` / `assets/preview-en.jpg`) and a share-card export example (`assets/image_export_demo.png`); refreshed the npm page accordingly.
 
-## [1.2.4] - 2026-04-13
+## [1.2.4] - 2026-09-02
 
 ### Changed
 - README / README.en: added the npm package install method (`dsh plugin --profile web add dsh-chinese-poetry`) as the primary option; refreshed the npm page accordingly.
 
-## [1.2.3] - 2026-04-13
+## [1.2.3] - 2026-09-02
 
 ### Changed
 - Moved the data-base credit line ("数据接口来自开源项目 palemoky/chinese-poetry-api…") from the top of the view down into the footer, stacked above the version line, so it no longer crowds the search toolbar.
 
-## [1.2.2] - 2026-04-13
+## [1.2.2] - 2026-09-02
 
 ### Changed
 - Share-card image now uses a **dynamic canvas height**: the card measures the wrapped title + body lines first, then sizes the canvas so long poems (将进酒 / 琵琶行, etc.) render in full instead of being clipped at the old fixed 860px. Short poems still floor at 860px for a consistent look.
 
-## [1.2.1] - 2026-04-13
+## [1.2.1] - 2026-09-02
 
 ### Fixed
 - Share-card image body layout: text lines could overlap (the first line of a long校勘 paragraph rendered on top of itself). The card now wraps every paragraph into a flat line list and draws each row with a strictly increasing y, so lines never collide. Added a fake-canvas test asserting monotonic line y and non-empty rows.
 
-## [1.2.0] - 2026-04-13
+## [1.2.0] - 2026-09-02
 
 ### Added
 - **Share card image**: render any poem as a parchment-style PNG card (title, author · dynasty, and the text) via `<canvas>`; a "卡片图 / Card" button in each poem's actions downloads it.
@@ -57,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Version bumped to **1.2.0** (`package.json` + `lib/client.js`).
 - Tool-bar gains a "Festivals" toggle; the poetry result view is now a 3-way split (search / favs / festival).
 
-## [1.1.0] - 2026-04-13
+## [1.1.0] - 2026-09-02
 
 ### Added
 - In-view **credit note** at the top of the Poetry tab: attributes the data to the upstream open-source project `palemoky/chinese-poetry-api` and points slow-query feedback to that project. Bilingual (zh/en).
@@ -74,7 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The plugin's data comes from the free public API `poetry.palemoky.com` (the `palemoky/chinese-poetry-api` project). It needs no registration, no API key, and has CORS open. Slow queries are usually the upstream service.
 - The dynasty correction table fixes mislabeled Song-era poets (e.g. 曾丰 / 毕仲游 / 张侃, shown as 唐) by correcting the display and flagging "已校正".
 
-## [0.5.0] - 2026-04-13
+## [0.5.0] - 2026-09-02
 
 ### Added
 - **Dynasty correction table**: corrects the API's mislabeled dynasties for well-known poets and flags each correction with a "已校正" badge.
