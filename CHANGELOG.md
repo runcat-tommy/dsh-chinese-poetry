@@ -5,6 +5,21 @@ All notable changes to **dsh-chinese-poetry** are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-04-13
+
+### Changed
+- **UI redesign** of the 诗词 tab: the search box and its button now form one attached control group instead of a full-width input with the button stranded at the far right.
+- Quick actions (随机一首 / 每日一首 / 节日 / 收藏 / 繁简) moved out of the search row into their own pill row, so the primary action and the secondary tools no longer compete for attention.
+- Filters (朝代 / 体裁 / 作者 / 筛一首 / 重置 / 飞花令 / 常用诗人) regrouped into a single bordered toolbar card; 飞花令 is pushed to the right of that card and 常用诗人 sits on its own line inside it.
+- Unified radius/spacing/color tokens, a clearer type scale and calmer dividers; result rows, festival cards and the footer got consistent card styling with hover states.
+- View toggles (节日 / 收藏) now use an outlined "active" style instead of the solid primary style, reserving solid fill for the primary actions.
+
+### Added
+- Empty state: before the first search the view now shows a guidance card with one-tap sample keywords (明月 / 春风 / 江南 / 相思 / 登高 / 黄河) instead of a blank canvas.
+
+### Fixed
+- The "结果: 0" meta line is no longer rendered before any search has run, removing meaningless status noise on first open.
+
 ## [1.2.5] - 2026-04-13
 
 ### Changed
