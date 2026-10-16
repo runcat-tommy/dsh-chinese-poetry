@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README（中/英）的「要求」表述由「`dsh web 0.1.0-rc.6` 或更新版本」改为「**0.1.0-rc.6+ 或 0.2.x**」，与新的声明范围一致。
 
 ### Notes
-- 本次**未改动任何运行时代码**：`lib/client.js` / `lib/index.js` 与 1.4.0 完全一致，纯元数据（声明）+ 文档修复。
+- 运行时代码零改动：`lib/client.js` / `lib/index.js` 与 1.4.0 完全一致，唯一改动是 `lib/client.js` 里 `PLUGIN_VERSION` 常量跟着版本号走（`1.4.0` → `1.4.1`），纯元数据（声明）+ 文档修复。
 
 ### Release
 - npm：`dsh-chinese-poetry@1.4.1`
