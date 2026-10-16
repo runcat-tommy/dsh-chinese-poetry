@@ -5,7 +5,7 @@ DeepSeek Harness Web 的**免 token 诗词查询插件**：在会话页头新增
 - 数据源：免费公共 API [诗泉 poetry.palemoky.com](https://poetry.palemoky.com/)（37 万首诗词，**无需注册、无需 API Key**，CORS 全开）
 - AI 解读 / 关联典故：透传给 **dsh 自己的会话**，消耗你已有的模型配额，无需额外申请任何模型 Key
 - 纯本地数据（收藏 / 历史 / 缓存），不建任何后端
-- 要求：`dsh web 0.1.0-rc.6` 或更新版本
+- 要求：`dsh web` **0.1.0-rc.6+ 或 0.2.x**（已在 0.2.0-rc.2 上实测）
 
 English: [README.en.md](README.en.md)
 

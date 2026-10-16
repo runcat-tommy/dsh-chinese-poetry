@@ -5,6 +5,22 @@ All notable changes to **dsh-chinese-poetry** are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2026-10-16
+
+### Fixed
+- **插件此前完全没有声明宿主版本要求，社区市场只能把它判为 `unknown`**：`package.json` 里没有任何 `peerDependencies`，而市场的判定逻辑（`dshmarket/lib/discovery-compatibility.js` 的 `deriveHostCompatibility`）只认三类声明——`engines.dsh`，以及 `peerDependencies` 里既在宿主包清单内、又匹配 `@deepseek-ai/dsh*` 的项。一条都没有 ⇒ 无法声明「我支持 0.2.x」，市场既不能说兼容、也不能据此给出安装建议。
+  - 修复：新增 4 条宿主 peer 声明——`@deepseek-ai/dsh-client-runtime` / `dsh-client-locale` / `dsh-client-ui-slots` / `dsh-client-ui-conversation`，范围统一写 **`^0.1.0-rc.6 || ^0.2.0-rc.1`**（与 `dsh-unitverse` 1.1.2 起采用的写法一致）。这 4 条正是 `dsh.client.inject` 声明的那 4 个包，不多声明、不漏声明。
+  - 为什么必须是两段式而不是只写 `^0.2.0-rc.1`：只声明 0.2.x 会让仍在 0.1.x 宿主上的用户直接被判 `incompatible`；两段式同时覆盖 `0.1.0-rc.6` / `0.1.0-rc.8` / `0.1.1-rc.2` / `0.2.0-rc.2` / `0.2.1-alpha.4` 五种宿主，全部判 `compatible`。**若日后两条线无法同时成立，以 0.2.x 为准，放弃 0.1.x。**
+- 实测证据（本机宿主 `0.2.0-rc.2`，工具为仓库外的 `verify-compat.mjs`，判定直接复用 dshmarket 自己的函数）：改前 `unknown` → 改后 `compatible`，要求显示为 `^0.1.0-rc.6 || ^0.2.0-rc.1`；`profiles/web` 体检该插件无 peer 警告；Web GUI 内「诗词」标签页正常打开与查询。
+- README（中/英）的「要求」表述由「`dsh web 0.1.0-rc.6` 或更新版本」改为「**0.1.0-rc.6+ 或 0.2.x**」，与新的声明范围一致。
+
+### Notes
+- 本次**未改动任何运行时代码**：`lib/client.js` / `lib/index.js` 与 1.4.0 完全一致，纯元数据（声明）+ 文档修复。
+
+### Release
+- npm：`dsh-chinese-poetry@1.4.1`
+- GitHub：https://github.com/runcat-tommy/dsh-chinese-poetry
+
 ## [1.4.0] - 2026-09-11
 
 ### Changed

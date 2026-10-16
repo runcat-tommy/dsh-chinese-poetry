@@ -5,7 +5,7 @@ A **token-free Chinese classical poetry plugin** for DeepSeek Harness Web: adds 
 - Data source: the free public API [诗泉 poetry.palemoky.com](https://poetry.palemoky.com/) (370k+ poems, **no registration, no API key**, CORS open)
 - AI explanation / allusions: forwarded to **your own DSH session** — uses the model quota you already have, no extra model key needed
 - All user data (favorites / history / cache) stays local; no backend is deployed
-- Requires: `dsh web 0.1.0-rc.6` or newer
+- Requires: `dsh web` **0.1.0-rc.6+ or 0.2.x** (verified on 0.2.0-rc.2)
 
 中文: [README.md](README.md)
 
